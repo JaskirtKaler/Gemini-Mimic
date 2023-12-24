@@ -4,15 +4,24 @@ import './Login.jsx'
 import Login from './Login'
 
 function App() {
+  const login = true;
 
-  return (
-    <>
-      <div className='wrapper'>
-        {/* <GeminiMimicTitle/> */}
-      </div>
-        <Login/>
-    </>
-  )
+  if (login){
+    return(
+      <Login/>
+    )
+  }
+  
+  else{
+    return (
+      <>
+        <div className='wrapper'>
+          {/* <GeminiMimicTitle/> */}
+        </div>
+      </>
+    )
+  }
+
 }
 
 function GeminiMimicTitle(){
