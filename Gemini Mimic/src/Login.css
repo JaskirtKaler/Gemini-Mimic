@@ -1,9 +1,21 @@
 
 .login-main{
-    width: 40vw;
-    height: 80vh;
-    background-color: red;
+    width: 100vw;
+    height: 100vh;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+}
+.login-contents{
+    width: 50vw;
+    height: 60vh;
+    background-color: rgba(255, 255, 255, 0.10);
+    @media screen and (max-width: 1200px){
+        width:  90vw;
+    }
+    border-radius: 1rem;
+    padding: 1rem;
+}
+.login-contents h1{
+    font-size: 350%;
 }
