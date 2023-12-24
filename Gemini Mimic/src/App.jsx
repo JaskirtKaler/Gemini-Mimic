@@ -6,7 +6,15 @@ function App() {
   return (
     <>
       <div className='wrapper'>
-        <GeminiMimicTitle/>
+
+        <section>
+          <GeminiMimicTitle/>
+        </section>
+
+        <section className='right-column'>
+
+        </section>
+
       </div>
     </>
   )

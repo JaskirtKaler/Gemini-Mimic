@@ -5,8 +5,11 @@
 
 .wrapper{
   display: grid;
+  grid-row: 1;
   grid-template-columns: 2fr 8fr;
   padding: 1rem;
+  background-color: #242424;
+
 }
 
 .gemini_title{
@@ -18,10 +21,13 @@
 }
 
 #gemini_logo{
-  height: 1.5rem;
+  height: 2rem;
 }
 
 h1{
-  font-size: 1rem;
+  font-size: 2rem;
 }
 
+.right-column{
+  background-color: #F3F5EA;
+}
