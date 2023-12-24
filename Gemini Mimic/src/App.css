@@ -1,4 +1,27 @@
 #root {
-  margin: 0 auto;
+  margin: 0;
   padding: 0;
 }
+
+.wrapper{
+  display: grid;
+  grid-template-columns: 2fr 8fr;
+  padding: 1rem;
+}
+
+.gemini_title{
+  display: flex;  
+  flex-direction: row;
+  align-items: center;
+  justify-self: center;
+  gap: 1rem;
+}
+
+#gemini_logo{
+  height: 1.5rem;
+}
+
+h1{
+  font-size: 1rem;
+}
+
