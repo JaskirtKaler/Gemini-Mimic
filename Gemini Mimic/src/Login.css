@@ -1,0 +1,9 @@
+
+.login-main{
+    width: 40vw;
+    height: 80vh;
+    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

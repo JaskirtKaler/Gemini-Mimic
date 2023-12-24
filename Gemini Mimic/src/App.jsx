@@ -1,13 +1,16 @@
 import './App.css'
 import logo from "../public/logo.png"
+import './Login.jsx'
+import Login from './Login'
 
 function App() {
 
   return (
     <>
       <div className='wrapper'>
-        <GeminiMimicTitle/>
+        {/* <GeminiMimicTitle/> */}
       </div>
+        <Login/>
     </>
   )
 }

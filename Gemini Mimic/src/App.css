@@ -4,9 +4,12 @@
 }
 
 .wrapper{
-  display: grid;
+  /* display: grid;
   grid-template-columns: 2fr 8fr;
-  padding: 1rem;
+  padding: 1rem; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .gemini_title{
