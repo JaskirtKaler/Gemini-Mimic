@@ -37,3 +37,14 @@ h1{
   flex-direction: column;
   justify-self: center;
 }
+
+.menu-item{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.img-home-wrapper{
+  height: 2rem;
+}

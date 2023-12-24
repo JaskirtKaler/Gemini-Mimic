@@ -1,5 +1,5 @@
 import './App.css';
-import logo from "../public/logo.png";
+import logo from "./logo.png";
 
 import { MagnifyingGlassCircleIcon, UserGroupIcon } from '@heroicons/react/24/solid';
 import { BookOpenIcon, UserIcon } from '@heroicons/react/24/outline';
@@ -34,27 +34,24 @@ function GeminiMimicHomePageTitle(){
   
   function GeminiHomePageOptions(){
     const menuOptionsImages = [
-      <MagnifyingGlassCircleIcon/>, 
-      <BookOpenIcon/>,
-      <UserGroupIcon/>,
-      <UserIcon/>
+      <MagnifyingGlassCircleIcon className='img-home-wrapper'/> , 
+      <BookOpenIcon className='img-home-wrapper'/>,
+      <UserGroupIcon className='img-home-wrapper'/>,
+      <UserIcon className='img-home-wrapper'/>
     ];
   
-    const menuOptions = ["Explore Gemini, History, About, Account"];
+    const menuOptions = ["Explore Gemini" , "History", "About", "Account"];
   
-    const listItems = menuOptions.map((option) => 
-      <div>
-        
-        <p>{option}</p>
-      </div>
-      
-      );
+    const listItems = menuOptions.map((option, index) => 
+    <div key={index} className="menu-item">
+        {menuOptionsImages[index]}
+      <h2>{option}</h2>
+    </div>
+    );
   
     return (
       <>
-        <div>
           {listItems}
-        </div>
       </>
     )
   }  
