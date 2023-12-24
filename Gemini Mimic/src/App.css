@@ -31,3 +31,9 @@ h1{
 .right-column{
   background-color: #F3F5EA;
 }
+
+.left-column{
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+}
