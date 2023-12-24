@@ -1,0 +1,63 @@
+.wrapper{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-row: 1;
+    grid-template-columns: 2fr 8fr;
+    background-color: #242424;
+  
+  }
+  
+  .gemini_title{
+    display: flex;  
+    flex-direction: row;
+    align-items: center;
+    justify-self: center;
+    gap: 1rem;
+  }
+  
+  #gemini_logo{
+    height: 2rem;
+  }
+  
+  h1{
+    font-size: 2rem;
+  }
+  
+  .right-column{
+    background-color: #F3F5EA;
+  }
+  
+  .left-column{
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    justify-content: space-between;
+  }
+  
+  .menu-item{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+  .img-home-wrapper{
+    height: 2rem;
+  }
+  
+  .home-log-out{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .home-line{
+    background-color: white;
+    height: 0.1rem;;
+  }
+  
+  .home-text-font{
+    font-size: 1.5rem;
+  }
