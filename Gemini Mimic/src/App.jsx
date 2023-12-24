@@ -1,8 +1,9 @@
 import './App.css'
-import logo from "../public/logo.png"
 import './Login.jsx'
 import Login from './Login'
+import Home from "./Home"
 import Register from './Register'
+
 function App() {
   const login = true;
   const register = true;
