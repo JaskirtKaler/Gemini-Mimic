@@ -12,8 +12,9 @@ load_dotenv()
 
 url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent'
 
+# "contents": [{"parts": [{"text": "PROMPT"}]}]  
 data = {
-    "contents": [{"parts": [{"text": "Write a story about a magic backpack"}]}]
+    "contents": [{"parts": [{"text": "Write a story about a magic backpack"}]}]  
 }
 
 api_key = os.getenv('API_KEY') 
