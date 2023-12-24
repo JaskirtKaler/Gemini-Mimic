@@ -6,7 +6,6 @@ import { BookOpenIcon, UserIcon, ArrowRightEndOnRectangleIcon } from '@heroicons
 
 function Home(){
     return (
-        <>
           <div className='wrapper'>
     
             <section className='left-column'>
@@ -14,7 +13,9 @@ function Home(){
                 <GeminiMimicHomePageTitle/>
                 <GeminiHomePageOptions/>
               </div>
+
               <GeminiMimicHomePageLogOut/>
+
             </section>
     
             <section className='right-column'>
@@ -22,7 +23,6 @@ function Home(){
             </section>
     
           </div>
-        </>
       )
 }
 
