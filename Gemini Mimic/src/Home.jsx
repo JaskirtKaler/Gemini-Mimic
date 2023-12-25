@@ -1,40 +1,49 @@
 import './Home.css';
 import logo from "./logo.png";
-import { Textarea } from '@chakra-ui/react'
+import { TextField } from '@mui/material';
 
 import { MagnifyingGlassCircleIcon, UserGroupIcon } from '@heroicons/react/24/solid';
 import { BookOpenIcon, UserIcon, ArrowRightEndOnRectangleIcon } from '@heroicons/react/24/outline';
 
 function Home(){
-  
-    return (
-          <div className='wrapper'>
-    
-            <section className='left-column'>
-              <div >
-                <GeminiMimicHomePageTitle/>
-                <GeminiHomePageOptions/>
-              </div>
 
-              <GeminiMimicHomePageLogOut/>
+  return (
+    <div className='wrapper'>
 
-            </section>
-    
-            <section className='right-column'>
-              {/* <Textarea placeholder='Here is a sample placeholder' /> */}
-            </section>
-    
-          </div>
-      )
+      <section className='left-column'>
+        <div >
+          <GeminiMimicHomePageTitle/>
+          <GeminiHomePageOptions/>
+        </div>
+
+        <GeminiMimicHomePageLogOut/>
+
+      </section>
+
+      <section className='right-column'>
+        <TextField
+        id="outlined-multiline-static"
+        label="Multiline"
+        multiline
+        rows={1}
+        defaultValue="Default Value"
+        variant="outlined"
+        style={{ width: '100%' }}
+        />
+      
+      </section>
+
+    </div>
+    )
 }
 
 function GeminiMimicHomePageTitle(){
-    return (
-        <div className="gemini_title">
-          <img src={logo} id='gemini_logo'/>
-          <h1>Gemini Mimic</h1>
-        </div>
-    )
+  return (
+      <div className="gemini_title">
+        <img src={logo} id='gemini_logo'/>
+        <h1>Gemini Mimic</h1>
+      </div>
+  )
   }
   
 function GeminiHomePageOptions(){
