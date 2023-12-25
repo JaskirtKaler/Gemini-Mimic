@@ -41,6 +41,15 @@
     align-items: center;
     gap: 1.5rem;
   }
+
+  .menu-item:hover{
+    /* background-color: #E75A7C; */
+    background-color: #383838;
+
+
+
+  }
+
   
   .img-home-wrapper{
     height: 2rem;

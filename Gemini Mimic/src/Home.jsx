@@ -1,10 +1,12 @@
 import './Home.css';
 import logo from "./logo.png";
+import { Textarea } from '@chakra-ui/react'
 
 import { MagnifyingGlassCircleIcon, UserGroupIcon } from '@heroicons/react/24/solid';
 import { BookOpenIcon, UserIcon, ArrowRightEndOnRectangleIcon } from '@heroicons/react/24/outline';
 
 function Home(){
+  
     return (
           <div className='wrapper'>
     
@@ -19,7 +21,7 @@ function Home(){
             </section>
     
             <section className='right-column'>
-    
+              {/* <Textarea placeholder='Here is a sample placeholder' /> */}
             </section>
     
           </div>
