@@ -2,7 +2,8 @@ import './Home.css';
 import logo from "./logo.png";
 import { TextField } from '@mui/material';
 
-import { MagnifyingGlassCircleIcon, UserGroupIcon } from '@heroicons/react/24/solid';
+import { useState } from 'react';
+import { MagnifyingGlassCircleIcon, UserGroupIcon, PaperAirplaneIcon } from '@heroicons/react/24/solid';
 import { BookOpenIcon, UserIcon, ArrowRightEndOnRectangleIcon } from '@heroicons/react/24/outline';
 
 function Home(){
@@ -21,16 +22,11 @@ function Home(){
       </section>
 
       <section className='right-column'>
-        <TextField
-        id="outlined-multiline-static"
-        label="Multiline"
-        multiline
-        rows={1}
-        defaultValue="Default Value"
-        variant="outlined"
-        style={{ width: '100%' }}
-        />
-      
+        <TextArea/>
+        <div className='send-home-button'>
+          <PaperAirplaneIcon className='img-home-wrapper' id='send-home-icon'/>
+        </div>
+
       </section>
 
     </div>
@@ -84,5 +80,31 @@ function GeminiMimicHomePageLogOut(){
   )
 }
 
+function TextArea(){
+  const [inputValue, setInputValue] = useState("Message Google Gemini");
+
+  const handleChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleFocus = () => {
+    if (inputValue == "Message Google Gemini"){
+      setInputValue("");
+    }
+  };
+
+  return (
+    <TextField
+          id="outlined-multiline-static"
+          multiline
+          value={inputValue}
+          onChange={handleChange}
+          onFocus={handleFocus}
+          rows={1}
+          variant="outlined"
+          style={{ width: '80%' }}
+    />
+  )
+}
 
 export default Home;
