@@ -22,9 +22,13 @@ function Home(){
       </section>
 
       <section className='right-column'>
-        <TextArea/>
-        <div className='send-home-button'>
-          <PaperAirplaneIcon className='img-home-wrapper' id='send-home-icon'/>
+        <div className='chat-wrapper'>
+          <div className='chat-interaction'>
+            <TextArea/>
+            <div className='send-home-button'>
+              <PaperAirplaneIcon className='img-home-wrapper' id='send-home-icon'/>
+            </div>
+          </div>
         </div>
 
       </section>
