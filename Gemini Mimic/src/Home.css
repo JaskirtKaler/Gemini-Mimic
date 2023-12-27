@@ -5,87 +5,81 @@ import '@fontsource/roboto/700.css';
  */
 
 .wrapper{
-    width: 100vw;
-    height: 100vh;
-    display: grid;
-    grid-row: 1;
-    grid-template-columns: 2fr 8fr;
-    background-color: #242424;
-  
-  }
-  
-  .gemini_title{
-    display: flex;  
-    flex-direction: row;
-    align-items: center;
-    justify-self: center;
-    gap: 1rem;
-  }
-  
-  #gemini_logo{
-    height: 2rem;
-  }
-  
-  h1{
-    font-size: 2rem;
-  }
-  
-  .right-column{
-    background-color: #F3F5EA;
-    display: flex;
-    flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-row: 1;
+  grid-template-columns: 2fr 8fr;
+  background-color: #242424;
 
-  }
+}
   
-  .left-column{
-    display: flex;
-    flex-direction: column;
-    justify-self: center;
-    justify-content: space-between;
-  }
+.gemini_title{
+  display: flex;  
+  flex-direction: row;
+  align-items: center;
+  justify-self: center;
+  gap: 1rem;
+}
   
-  .menu-item{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1.5rem;
-  }
+#gemini_logo{
+  height: 2rem;
+}
 
-  .menu-item:hover{
-    /* background-color: #E75A7C; */
-    background-color: #383838;
+h1{
+  font-size: 2rem;
+}
 
+.right-column{
+  background-color: #F3F5EA;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem 2rem 1rem 2rem;
 
+}
 
-  }
+.left-column{
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  justify-content: space-between;
+}
+
+.menu-item{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.menu-item:hover, .home-log-out:hover{
+  /* background-color: #E75A7C; */
+  background-color: #383838;
+  cursor: pointer;
+
+}
 
   
-  .img-home-wrapper{
-    height: 2rem;
-  }
-  
-  .home-log-out{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .home-line{
-    background-color: white;
-    height: 0.1rem;;
-  }
-  
-  .home-text-font{
-    font-size: 1.5rem;
-  }
+.img-home-wrapper{
+  height: 2rem;
+}
 
-  .send-home-button{
-    width: 4rem;
-    height: 4rem;
-    background-color: #E75A7C;
-    
-  }
+.home-log-out{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.home-line{
+  background-color: white;
+  height: 0.1rem;;
+}
+
+.home-text-font{ 
+  font-size: 1.5rem;
+}
 
 #send-home-icon{
   display: flex;
@@ -95,16 +89,41 @@ import '@fontsource/roboto/700.css';
   height: 100%;
 }
 
+.send-home-button{
+  width: 4rem;
+  height: 4rem;
+  background-color: #E75A7C;
+  flex-shrink: 0; /* Prevent the button from shrinking */
+
+}
+
 .chat-interaction{
+  width: 100%; /* Set the chat interaction to take the full width of its parent */
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  gap: 2rem;
   align-items: center;
 }
 
 .chat-wrapper{
+  width: 100%; /* Set the chat wrapper to take the full width of its parent */
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
+#gemini_welcome_logo{
+  height: 10rem;
+
+}
+
+#gemini-welcome-text{
+  color: #E75A7C;
+  font-size: 3rem;
+}
+
+.gemini_welcome{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

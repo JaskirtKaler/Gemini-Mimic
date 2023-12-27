@@ -22,15 +22,8 @@ function Home(){
       </section>
 
       <section className='right-column'>
-        <div className='chat-wrapper'>
-          <div className='chat-interaction'>
-            <TextArea/>
-            <div className='send-home-button'>
-              <PaperAirplaneIcon className='img-home-wrapper' id='send-home-icon'/>
-            </div>
-          </div>
-        </div>
-
+        <GeminiHomeTitleWelcome/>
+        <GeminiMimicHomePageChatBox/>
       </section>
 
     </div>
@@ -59,7 +52,7 @@ function GeminiHomePageOptions(){
   const listItems = menuOptions.map((option, index) => 
   <div key={index} className="menu-item">
       {menuOptionsImages[index]}
-    <h2 className='home-text-font'>{option}</h2>
+    <p className='home-text-font'>{option}</p>
   </div>
   );
 
@@ -76,7 +69,7 @@ function GeminiMimicHomePageLogOut(){
       <div className='home-line'></div>
 
       <div className='home-log-out'>
-        <h3 className='home-text-font'>Log out</h3>
+        <p className='home-text-font'>Log out</p>
         <ArrowRightEndOnRectangleIcon className='img-home-wrapper'/>
       </div>
 
@@ -99,15 +92,37 @@ function TextArea(){
 
   return (
     <TextField
-          id="outlined-multiline-static"
-          multiline
-          value={inputValue}
-          onChange={handleChange}
-          onFocus={handleFocus}
-          rows={1}
-          variant="outlined"
-          style={{ width: '80%' }}
+      id="outlined-multiline-static"
+      multiline
+      value={inputValue}
+      onChange={handleChange}
+      onFocus={handleFocus}
+      rows={1}
+      variant="outlined"
+      style={{ width: '100%' }}
     />
+  )
+}
+
+function GeminiMimicHomePageChatBox(){
+  return (
+    <div className='chat-wrapper'>
+      <div className='chat-interaction'>
+        <TextArea/>
+        <div className='send-home-button'>
+          <PaperAirplaneIcon className='img-home-wrapper' id='send-home-icon'/>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function GeminiHomeTitleWelcome(){
+  return (
+  <div className="gemini_welcome">
+    <img src={logo} id='gemini_welcome_logo'/>
+    <h2 id='gemini-welcome-text'>Hello! How can Google Gemini help you today?</h2>
+  </div>
   )
 }
 
