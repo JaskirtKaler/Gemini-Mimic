@@ -1,12 +1,16 @@
 import './Home.css';
 import logo from "./logo.png";
 import { TextField } from '@mui/material';
-
+import { Link } from "react-router-dom";
 import { useState } from 'react';
 import { MagnifyingGlassCircleIcon, UserGroupIcon, PaperAirplaneIcon } from '@heroicons/react/24/solid';
 import { BookOpenIcon, UserIcon, ArrowRightEndOnRectangleIcon } from '@heroicons/react/24/outline';
+import Logout from "./Logout"
 
 function Home(){
+  const [messageSent, setMessageSent] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [inputValue, setInputValue] = useState("Message Google Gemini");
 
   return (
     <div className='wrapper'>
@@ -16,14 +20,22 @@ function Home(){
           <GeminiMimicHomePageTitle/>
           <GeminiHomePageOptions/>
         </div>
-
         <GeminiMimicHomePageLogOut/>
 
       </section>
 
       <section className='right-column'>
-        <GeminiHomeTitleWelcome/>
-        <GeminiMimicHomePageChatBox/>
+        { !messageSent && <GeminiHomeTitleWelcome/> }
+        { messageSent && <MessageList messages={messages} /> }
+        <GeminiMimicHomePageChatBox
+          onMessageSend={setMessageSent}
+          addMessage={(newMessage) => {
+            setMessages([...messages, newMessage]);
+            setMessageSent(true); // Set messageSent to true when a new message is added
+          }}
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+        />
       </section>
 
     </div>
@@ -64,8 +76,11 @@ function GeminiHomePageOptions(){
 }  
 
 function GeminiMimicHomePageLogOut(){
+  const handleClick = (e) => {
+    return (<Logout/>);
+  }
   return (
-    <div>
+    <div onClick={handleClick}>
       <div className='home-line'></div>
 
       <div className='home-log-out'>
@@ -77,16 +92,21 @@ function GeminiMimicHomePageLogOut(){
   )
 }
 
-function TextArea(){
-  const [inputValue, setInputValue] = useState("Message Google Gemini");
-
+function TextArea({ inputValue, setInputValue, onSend }) {
   const handleChange = (event) => {
     setInputValue(event.target.value);
   };
 
   const handleFocus = () => {
-    if (inputValue == "Message Google Gemini"){
+    if (inputValue === "Message Google Gemini") {
       setInputValue("");
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      onSend(inputValue); // Send message when Enter key is pressed
+      setInputValue("");  // Clear the input field
     }
   };
 
@@ -97,25 +117,36 @@ function TextArea(){
       value={inputValue}
       onChange={handleChange}
       onFocus={handleFocus}
+      onKeyPress={handleKeyPress}
       rows={1}
       variant="outlined"
       style={{ width: '100%' }}
     />
-  )
+  );
 }
 
-function GeminiMimicHomePageChatBox(){
+
+function GeminiMimicHomePageChatBox({ onMessageSend, addMessage, inputValue, setInputValue }) {
+  const handleMessageSend = () => {
+    if (inputValue.trim() !== "") {
+      addMessage({ text: inputValue, sender: 'user' });
+      setInputValue(""); // Clear the input field after sending
+      onMessageSend(true);
+    }
+  };
+
   return (
     <div className='chat-wrapper'>
       <div className='chat-interaction'>
-        <TextArea/>
-        <div className='send-home-button'>
+        <TextArea inputValue={inputValue} setInputValue={setInputValue} onSend={handleMessageSend} />
+        <div className='send-home-button' onClick={handleMessageSend}>
           <PaperAirplaneIcon className='img-home-wrapper' id='send-home-icon'/>
         </div>
       </div>
     </div>
-  )
+  );
 }
+
 
 function GeminiHomeTitleWelcome(){
   return (
@@ -125,5 +156,18 @@ function GeminiHomeTitleWelcome(){
   </div>
   )
 }
+
+function MessageList({ messages }) {
+  return (
+    <div className="message-list" style={{ overflowY: 'auto', maxHeight: '400px' }}>
+      {messages.map((message, index) => (
+        <p key={index} className={`message ${message.sender}`}>
+          {message.text}
+        </p>
+      ))}
+    </div>
+  );
+}
+
 
 export default Home;
