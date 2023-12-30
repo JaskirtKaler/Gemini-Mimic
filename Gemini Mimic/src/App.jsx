@@ -2,11 +2,11 @@ import './App.css'
 import './Login.jsx'
 import Login from './Login'
 import Home from "./Home"
-import Register from './Register'
+import Signup from './Signup'
 
 function App() {
   const login = true;
-  const register = true;
+  const register = false;
   if (login){
 
     if(register){
@@ -17,7 +17,7 @@ function App() {
       
     }else{
       return(
-        <Register />
+        <Signup/>
       )
     }
   }
