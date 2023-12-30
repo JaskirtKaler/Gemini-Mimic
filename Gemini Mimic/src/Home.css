@@ -134,20 +134,21 @@ h1{
 
 .message-list {
   border: 1px solid #ccc;
-  padding: 10px;
-  height: 100%; /* Adjust as needed */
+  padding: 1rem;
+  height: 100%;
   overflow-y: auto;
+  max-height: 55rem;
 }
 
 .message.user {
-  background-color: #d0f0c0; /* Light green for user messages */
+  background-color: #E75A7C;
   padding: 5px;
   border-radius: 5px;
   margin-bottom: 5px;
 }
 
 .message.system {
-  background-color: #f0d0d0; /* Light red for system responses */
+  background-color: #f0d0d0;
   padding: 5px;
   border-radius: 5px;
   margin-bottom: 5px;
