@@ -2,23 +2,16 @@ import './Home.css';
 import logo from "./logo.png";
 import { TextField } from '@mui/material';
 import { Link } from "react-router-dom";
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { MagnifyingGlassCircleIcon, UserGroupIcon, PaperAirplaneIcon } from '@heroicons/react/24/solid';
 import { BookOpenIcon, UserIcon, ArrowRightEndOnRectangleIcon } from '@heroicons/react/24/outline';
 import Logout from "./Logout"
 import axios from 'axios';
 
-const messArr = [];
-
 function Home(){
   const [messageSent, setMessageSent] = useState(false);
-  // const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("Message Google Gemini");
-
-  // useEffect(() => {
-  //   console.log("Updated messages:", JSON.stringify(messages));
-  // }, [messages]);
-
 
   return (
     <div className='wrapper'>
@@ -36,10 +29,11 @@ function Home(){
         { !messageSent && <GeminiHomeTitleWelcome/> }
         { messageSent && <MessageList messages={messages} /> }
         <GeminiMimicHomePageChatBox
-          // addMessage={(newMessage) => {
-          //   setMessages((prevMessages) => [...prevMessages, newMessage]);
-          //   setMessageSent(true); // Set messageSent to true when a new message is added
-          // }}
+          onMessageSend={setMessageSent}
+          addMessage={(newMessage) => {
+            setMessages([...messages, newMessage]);
+            setMessageSent(true); // Set messageSent to true when a new message is added
+          }}
           inputValue={inputValue}
           setInputValue={setInputValue}
         />
@@ -133,28 +127,20 @@ function TextArea({ inputValue, setInputValue, onSend }) {
 }
 
 
-function GeminiMimicHomePageChatBox({ addMessage, inputValue, setInputValue }) {
+function GeminiMimicHomePageChatBox({ onMessageSend, addMessage, inputValue, setInputValue }) {
   const handleMessageSend = async () => {
-    if (inputValue.trim() === "") return;
+    if (inputValue.trim() !== "") {
+      addMessage({ text: inputValue, sender: 'user' });
+      setInputValue(""); // Clear the input field after sending
+      onMessageSend(true);
 
-    const userMessage = { text: inputValue, sender: 'user' };
-    messArr.push(userMessage);
-    // addMessage(prevMessages => prevMessages.concat(newUserMessage));
-    console.log("Added user message:", userMessage);
+      // const response = await axios.post('http://127.0.0.1:5000/chat', { message: inputValue });
+      // addMessage({ text: response.data.response, sender: 'server' });
+      // onMessageSend(true);
 
-    setInputValue(""); // Clear the input field after sending
-
-    try {
-      const response = await axios.post('http://127.0.0.1:5000/chat', { message: inputValue });
-      const serverMessage = { text: response.data.response, sender: 'server' };
-      messArr.push(serverMessage);
-      // addMessage(prevMessages => prevMessages.concat(newUserMessage));
-      console.log("Added server message:", serverMessage);
-
-    } catch (error) {
-      const errorMessage = { text: 'ERROR.', sender: 'server' };
-      // addMessage(errorMessage);
     }
+
+    
   };
 
   return (
@@ -179,10 +165,10 @@ function GeminiHomeTitleWelcome(){
   )
 }
 
-function MessageList({ messArr }) {
+function MessageList({ messages }) {
   return (
-    <div className="message-list">
-      {messArr.map((message, index) => (
+    <div className="message-list" style={{ overflowY: 'auto', maxHeight: '400px' }}>
+      {messages.map((message, index) => (
         <p key={index} className={`message ${message.sender}`}>
           {message.text}
         </p>
