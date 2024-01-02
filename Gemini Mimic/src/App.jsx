@@ -6,7 +6,7 @@ import Signup from './Signup'
 
 function App() {
   const login = true;
-  const register = false;
+  const register = true;
   if (login){
 
     if(register){

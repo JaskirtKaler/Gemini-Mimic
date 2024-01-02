@@ -14,6 +14,10 @@ export default function Login() {
     setData({ ...data, ...newInput});
   }
 
+  const handleCreate = () =>{
+
+  }
+
 
   const handleLogin = () => {
     // handle login here
@@ -40,7 +44,6 @@ export default function Login() {
     return <Home />
   }
 
-
   return (
     <div className="login-main">
       <div className="login-contents">
@@ -61,9 +64,10 @@ export default function Login() {
         placeholder='Password'
         onChange={(event) => handleInput(event)}
         />
-       <button onClick={handleLogin}>Login</button>
+       <button className="login-btn" onClick={handleLogin}>Login</button>
         {/* In your JSX, display the error if it exists */}
         {error && <p className="error-message">{error}</p>}
+        <button onClick={handleCreate} className='signup'>Create account</button>
       </div>
     </div>
   )
