@@ -1,7 +1,6 @@
 import './Home.css';
 import logo from "./logo.png";
 import { TextField } from '@mui/material';
-import { Link } from "react-router-dom";
 import { useState } from 'react';
 import { MagnifyingGlassCircleIcon, UserGroupIcon, PaperAirplaneIcon } from '@heroicons/react/24/solid';
 import { BookOpenIcon, UserIcon, ArrowRightEndOnRectangleIcon } from '@heroicons/react/24/outline';
@@ -185,7 +184,6 @@ function GeminiMimicHomePageChatBox({ onMessageSend, inputValue, setInputValue }
     </div>
   );
 }
-
 
 function GeminiHomeTitleWelcome(){
   return (
