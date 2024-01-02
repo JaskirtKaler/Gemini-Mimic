@@ -2,27 +2,18 @@ import './App.css'
 import './Login.jsx'
 import Login from './Login'
 import Home from "./Home"
-import Register from './Register'
+import Signup from './Signup'
 
 function App() {
-  const login = false;
-  const register = true;
+  const login = true;
   if (login){
 
-    if(register){
-      return(
-        <Login/>
-        // click btn so then we move to Register
-      )
+    return(
+      <Login/>
+      // click btn so then we move to Register
+    )
       
-    }else{
-      return(
-        <Register />
-      )
-    }
-  }
-  
-  else{
+  }else{
     return (
       <Home/>
     )
