@@ -1,12 +1,11 @@
-
-.login-main{
+.signup-main{
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.login-contents{
+.signup-contents{
     width: 50vw;
     height: 60vh;
     background-color: rgba(255, 255, 255, 0.10);
@@ -15,24 +14,36 @@
     }
     border-radius: 1rem;
     padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 1);
 }
-.login-contents h1{
+.signup-title{
+    width: 100%;
+    height: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+.signup-title h1{
     font-size: 10vh;
     margin: 0;
 }
-.login-contents input{
+.signup-context{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 75%;
+}
+.inputs{
     width: 80%;
     height: 10%;
     border: none;
     border-radius: 0.8rem;
     padding: 1rem;
 }
-.login-btn{
+.inputs-btn{
     width: 30%;
     height: 10%;
     border: none;
@@ -40,20 +51,13 @@
     padding: 1rem;
     cursor: pointer;
 }
-.login-btn:hover{
+
+.inputs-btn:hover{
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 1);
+    
 }
-.login-btn:active{
+.inputs-btn:active{
     transform: translateY(-1px);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 1);
-}
-.signup{
-    font-size: 1.5vh;
-    cursor: pointer;
-    background-color: #E75A7C;
-    border: none;
-    color: #2C363F;
-    border-radius: 0.8rem;
-    padding: 0.5rem;
 }
