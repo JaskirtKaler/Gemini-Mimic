@@ -8,7 +8,14 @@ import { BookOpenIcon, UserIcon, ArrowRightEndOnRectangleIcon } from '@heroicons
 import Logout from "./Logout"
 import axios from 'axios';
 
+import {test} from "./firebaseConfig"
+import { collection, query, orderBy, getFirestore, Timestamp, addDoc } from 'firebase/firestore';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { getAuth } from 'firebase/auth';
+
+
 function Home(){
+  test();
   const [messageSent, setMessageSent] = useState(false);
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("Message Google Gemini");
@@ -25,13 +32,13 @@ function Home(){
 
       </section>
 
+
       <section className='right-column'>
         { !messageSent && <GeminiHomeTitleWelcome/> }
         { messageSent && <MessageList messages={messages} /> }
         <GeminiMimicHomePageChatBox
           onMessageSend={setMessageSent}
-          addMessage={(newMessage) => {
-            setMessages([...messages, newMessage]);
+          addMessage={() => {
             setMessageSent(true); // Set messageSent to true when a new message is added
           }}
           inputValue={inputValue}
@@ -127,21 +134,36 @@ function TextArea({ inputValue, setInputValue, onSend }) {
 }
 
 
-function GeminiMimicHomePageChatBox({ onMessageSend, addMessage, inputValue, setInputValue }) {
-  const handleMessageSend = async () => {
+function GeminiMimicHomePageChatBox({ onMessageSend, inputValue, setInputValue }) {
+  const firestore = getFirestore();
+  const auth = getAuth();
+
+  const messagesRef = collection(firestore, 'messages');
+
+  const handleMessageSend = async (e) => {
     if (inputValue.trim() !== "") {
-      addMessage({ text: inputValue, sender: 'user' });
-      setInputValue(""); // Clear the input field after sending
       onMessageSend(true);
+  
+      const { uid } = auth.currentUser;
+      const who = "user";
+  
+      try {
+        await addDoc(messagesRef, {
+          text: inputValue,
+          createdAt: Timestamp.now(),
+          who,
+          uid
+        });
+      } catch (error) {
+        console.error("Error adding message: ", error);
+      }
 
-      // const response = await axios.post('http://127.0.0.1:5000/chat', { message: inputValue });
-      // addMessage({ text: response.data.response, sender: 'server' });
-      // onMessageSend(true);
-
+      
+  
+      setInputValue(""); // Clear the input field after sending
     }
-
-    
   };
+  
 
   return (
     <div className='chat-wrapper'>
@@ -165,17 +187,33 @@ function GeminiHomeTitleWelcome(){
   )
 }
 
-function MessageList({ messages }) {
+function MessageList() {
+  const firestore = getFirestore();
+  const messagesRef = collection(firestore, 'messages');
+  const messagesQuery = query(messagesRef, orderBy('createdAt'));
+
+  const [messages] = useCollectionData(messagesQuery, { idField: 'id' });
+
   return (
-    <div className="message-list" style={{ overflowY: 'auto', maxHeight: '400px' }}>
-      {messages.map((message, index) => (
-        <p key={index} className={`message ${message.sender}`}>
-          {message.text}
-        </p>
-      ))}
+    <div className="message-list" style={{ overflowY: 'auto', maxHeight: '95rem' }}>
+      {messages && messages.map((msg, index) => 
+        <ChatMessage key={msg.id || index} message={msg} />
+      )}
     </div>
   );
 }
 
+function ChatMessage(props) {
+  const {text, uid} = props.message;
+
+
+
+  return (
+    <div className={`message user`}>
+      <p className='test'>{text}</p>
+    </div>
+
+  ) 
+}
 
 export default Home;
