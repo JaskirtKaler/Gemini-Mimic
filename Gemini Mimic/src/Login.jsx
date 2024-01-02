@@ -3,19 +3,21 @@ import './Login.css'
 import { app } from './firebaseConfig'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import Home from "./Home"
+import Signup from './Signup'
 export default function Login() {
   const [data, setData] = useState({})
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null); // Track user authentication status
-  const auth = getAuth();
-  
+  const [isCreatingAccount, setIsCreatingAccount] = useState(false); // render Signup
+  const auth = getAuth(); 
+
   const handleInput = (event) =>{
     let newInput = { [event.target.name]: event.target.value}
     setData({ ...data, ...newInput});
   }
 
   const handleCreate = () =>{
-
+    setIsCreatingAccount(true);
   }
 
 
@@ -43,6 +45,9 @@ export default function Login() {
   if(user){
     return <Home />
   }
+  if(isCreatingAccount){
+    return <Signup />
+  }
 
   return (
     <div className="login-main">
@@ -68,6 +73,7 @@ export default function Login() {
         {/* In your JSX, display the error if it exists */}
         {error && <p className="error-message">{error}</p>}
         <button onClick={handleCreate} className='signup'>Create account</button>
+        
       </div>
     </div>
   )

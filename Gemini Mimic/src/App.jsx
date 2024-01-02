@@ -6,23 +6,14 @@ import Signup from './Signup'
 
 function App() {
   const login = true;
-  const register = true;
   if (login){
 
-    if(register){
-      return(
-        <Login/>
-        // click btn so then we move to Register
-      )
+    return(
+      <Login/>
+      // click btn so then we move to Register
+    )
       
-    }else{
-      return(
-        <Signup/>
-      )
-    }
-  }
-  
-  else{
+  }else{
     return (
       <Home/>
     )
