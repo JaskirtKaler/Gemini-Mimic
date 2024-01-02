@@ -13,7 +13,6 @@ import { collection, query, orderBy, getFirestore, Timestamp, addDoc } from 'fir
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { getAuth } from 'firebase/auth';
 
-
 function Home(){
   test();
   const [messageSent, setMessageSent] = useState(false);
@@ -113,8 +112,8 @@ function TextArea({ inputValue, setInputValue, onSend }) {
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      onSend(inputValue); // Send message when Enter key is pressed
-      setInputValue("");  // Clear the input field
+      onSend(inputValue);
+      setInputValue("");
     }
   };
 
@@ -133,7 +132,6 @@ function TextArea({ inputValue, setInputValue, onSend }) {
   );
 }
 
-
 function GeminiMimicHomePageChatBox({ onMessageSend, inputValue, setInputValue }) {
   const firestore = getFirestore();
   const auth = getAuth();
@@ -145,7 +143,7 @@ function GeminiMimicHomePageChatBox({ onMessageSend, inputValue, setInputValue }
       onMessageSend(true);
   
       const { uid } = auth.currentUser;
-      const who = "user";
+      let who = "user";
   
       try {
         await addDoc(messagesRef, {
@@ -158,8 +156,19 @@ function GeminiMimicHomePageChatBox({ onMessageSend, inputValue, setInputValue }
         console.error("Error adding message: ", error);
       }
 
-      
-  
+      const response = await axios.post('http://127.0.0.1:5000/chat', { message: inputValue });
+      const serverResponse = { text: response.data.response, sender: 'server' };
+      who = "server";
+      try {
+        await addDoc(messagesRef, {
+          text: serverResponse.text,
+          createdAt: Timestamp.now(),
+          who,
+          uid
+        });
+      } catch (error) {
+        console.error("Error adding message: ", error);
+      }
       setInputValue(""); // Clear the input field after sending
     }
   };
@@ -204,12 +213,10 @@ function MessageList() {
 }
 
 function ChatMessage(props) {
-  const {text, uid} = props.message;
-
-
+  const {text, who} = props.message;
 
   return (
-    <div className={`message user`}>
+    <div className={`message ${who}`}>
       <p className='test'>{text}</p>
     </div>
 
