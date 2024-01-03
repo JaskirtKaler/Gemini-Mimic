@@ -1,0 +1,50 @@
+.logo-wrapper{
+    background-color: #F2F5EA;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100vw;
+    height: 100vh;
+    justify-content: space-between;
+}
+
+.logo-logout{
+    display: flex;
+    justify-content: center;
+}
+
+#gemini_logout_logo{
+    height: 10rem;
+}
+
+.logout-line{
+    background-color: #E75A7C;
+    height: 0.2rem;
+}
+
+.main-ui-logout{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: #2C363F;
+}
+
+#logged-out-text{
+    font-size: 5rem;
+}
+
+#thank-logout{
+    font-size: 1.5rem;
+}
+
+#footer-text{
+    font-size: 1rem;
+
+}
+
+.logout-footer{
+    display: flex;
+    background-color: #E75A7C;
+    justify-content: center;
+}
