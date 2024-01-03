@@ -4,7 +4,6 @@ import { TextField } from '@mui/material';
 import { useState } from 'react';
 import { MagnifyingGlassCircleIcon, UserGroupIcon, PaperAirplaneIcon } from '@heroicons/react/24/solid';
 import { BookOpenIcon, UserIcon, ArrowRightEndOnRectangleIcon } from '@heroicons/react/24/outline';
-import Logout from "./Logout"
 import axios from 'axios';
 
 import {test} from "./firebaseConfig"
