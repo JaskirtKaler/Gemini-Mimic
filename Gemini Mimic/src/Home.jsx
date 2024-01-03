@@ -10,7 +10,8 @@ import axios from 'axios';
 import {test} from "./firebaseConfig"
 import { collection, query, orderBy, getFirestore, Timestamp, addDoc } from 'firebase/firestore';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { getAuth } from 'firebase/auth';
+import { getAuth, signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 function Home(){
   test();
@@ -82,18 +83,26 @@ function GeminiHomePageOptions(){
 }  
 
 function GeminiMimicHomePageLogOut(){
-  const handleClick = (e) => {
-    return (<Logout/>);
-  }
-  return (
-    <div onClick={handleClick}>
-      <div className='home-line'></div>
+  const auth = getAuth();
+  const navigate = useNavigate();
 
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate('/logout');
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  };
+
+
+  return (
+    <div onClick={handleLogout}>
+      <div className='home-line'></div>
       <div className='home-log-out'>
         <p className='home-text-font'>Log out</p>
         <ArrowRightEndOnRectangleIcon className='img-home-wrapper'/>
       </div>
-
     </div>
   )
 }
