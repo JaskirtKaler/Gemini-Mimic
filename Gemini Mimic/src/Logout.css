@@ -6,6 +6,8 @@
     width: 100vw;
     height: 100vh;
     justify-content: space-between;
+    margin: 0;
+    padding: 0;
 }
 
 .logo-logout{
@@ -26,12 +28,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
     color: #2C363F;
 }
 
 #logged-out-text{
     font-size: 5rem;
+    margin: 0;
+    padding: 0;
 }
 
 #thank-logout{
@@ -47,4 +50,10 @@
     display: flex;
     background-color: #E75A7C;
     justify-content: center;
+}
+
+.line-logo-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; 
 }
