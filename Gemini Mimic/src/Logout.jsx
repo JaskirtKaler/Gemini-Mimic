@@ -12,12 +12,14 @@ function Logout(){
 
     return (
         <div className="logo-wrapper">
+            
             <div className="line-logo-wrapper">
                 <div className="logo-logout">
                     <img src={logo} id='gemini_logout_logo'/>
                 </div>
                 <div className="logout-line"/>
             </div>
+
             <div className="main-ui-logout">
                 <h1 id="logged-out-text">Logged Out</h1>
                 <p id="thank-logout">Thank you for using Gemini Mimic!</p>
