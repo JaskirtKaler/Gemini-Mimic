@@ -2,7 +2,7 @@ import React, { useState} from 'react';
 import './Signup.css'
 import { app } from './firebaseConfig'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, doc, setDoc, collection } from 'firebase/firestore';
+import { getFirestore, doc, setDoc, collection, addDoc } from 'firebase/firestore';
 import Home from './Home';
 import { useNavigate } from 'react-router-dom';
 function Signup() {
@@ -27,7 +27,6 @@ function Signup() {
             // console.log('Signed up user:', user)
             const userDocRef = doc(db, 'users', user.uid);
             await setDoc(userDocRef, {uid: user.uid});
-            navigate('/home'); // render Home.jsx
             console.log('signed in! creating message collection');
             const messagesCollectionRef = collection(userDocRef, 'messages'); // message collection created  ---- error right here--- message subcollection is not being created 
             // Add a sample message to the 'messages' subcollection
@@ -36,9 +35,17 @@ function Signup() {
               timestamp: new Date(),
               who: 'user', // Replace with 'server' if it's a server message
             };
-
-            // Add the sample message document to the 'messages' subcollection
-            await addDoc(messagesCollectionRef, sampleMessage);
+            
+            try {
+              // Add the sample message document to the 'messages' subcollection
+              await addDoc(messagesCollectionRef, sampleMessage); // error with addDoc not showing
+              console.log('Message added to subcollection.');
+            } catch (error) {
+              console.error('Error adding message:', error);
+            }
+            
+            console.log('user message collection has been created');
+            navigate('/home'); // render Home.jsx
         }catch(error){
             setError(Error.message)
         }
