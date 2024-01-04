@@ -143,44 +143,56 @@ function GeminiMimicHomePageChatBox({ onMessageSend, inputValue, setInputValue }
   const firestore = getFirestore();
   const auth = getAuth();
 
-  const messagesRef = collection(firestore, 'messages');
 
   const handleMessageSend = async (e) => {
-    if (inputValue.trim() !== "") {
-      onMessageSend(true);
-  
-      const { uid } = auth.currentUser;
-      let who = "user";
+    const trimmedInput = inputValue.trim();
+    onMessageSend(true);
+
+    const currentUser = auth.currentUser;
+    if (!currentUser) {
+      console.error("No user signed in to send a message.");
+      return;
+    }
+
+    if (trimmedInput !== "") {  
+      const userMessagesRef = collection(firestore, 'users', currentUser.uid, 'messages');
   
       try {
-        await addDoc(messagesRef, {
-          text: inputValue,
+        const userMessageDocRef = await addDoc(userMessagesRef, {
+          text: trimmedInput,
           createdAt: Timestamp.now(),
-          who,
-          uid
+          type: 'user',
+          uid: currentUser.uid
         });
       } catch (error) {
-        console.error("Error adding message: ", error);
+        console.error("Error adding user message: ", error);
       }
 
-      const response = await axios.post('http://127.0.0.1:5000/chat', { message: inputValue });
-      const serverResponse = { text: response.data.response, sender: 'server' };
-      who = "server";
+      let serverResponse;
       try {
-        await addDoc(messagesRef, {
-          text: serverResponse.text,
+        const response = await axios.post('http://127.0.0.1:5000/chat', { message: trimmedInput });
+        serverResponse = response.data.response;
+      } catch (error) {
+        console.error("Error getting server response: ", error);
+        serverResponse = "Sorry, I'm having trouble understanding that right now.";
+      }
+
+      try {
+        const serverMessageDocRef = await addDoc(userMessagesRef, {
+          text: serverResponse,
           createdAt: Timestamp.now(),
-          who,
-          uid
+          type: 'server',
+          uid: currentUser.uid
         });
       } catch (error) {
-        console.error("Error adding message: ", error);
+        console.error("Error adding server message: ", error);
       }
+
       setInputValue(""); // Clear the input field after sending
+
     }
   };
   
-
   return (
     <div className='chat-wrapper'>
       <div className='chat-interaction'>
@@ -204,8 +216,11 @@ function GeminiHomeTitleWelcome(){
 
 function MessageList() {
   const firestore = getFirestore();
-  const messagesRef = collection(firestore, 'messages');
-  const messagesQuery = query(messagesRef, orderBy('createdAt'));
+  const auth = getAuth(); 
+  const user = auth.currentUser;
+
+  const messagesRef = collection(firestore, 'users', user.uid, 'messages');
+  const messagesQuery = query(messagesRef, orderBy('createdAt', 'asc'));
 
   const [messages] = useCollectionData(messagesQuery, { idField: 'id' });
 
@@ -219,10 +234,10 @@ function MessageList() {
 }
 
 function ChatMessage(props) {
-  const {text, who} = props.message;
+  const {text, type} = props.message;
 
   return (
-    <div className={`message ${who}`}>
+    <div className={`message ${type}`}>
       <p className='test'>{text}</p>
     </div>
 
