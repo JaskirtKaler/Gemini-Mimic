@@ -29,14 +29,7 @@ function Signup() {
             const messageCollectionRef = collection(userDocRef, 'messages'); // message collection created 
             console.log('User signed up:', user.uid);
             // Create a new message document
-            const messageData = {
-              text: 'This is a test message',
-              timestamp: new Date(),
-              sender: currentUserUID,
-              sentByUser: true,
-              // Other relevant fields specific to your application or message structure
-            };
-            await addDoc(messageCollectionRef, messageData);// 
+           
 
             setIsSignedUp(true);
         }catch(error){
