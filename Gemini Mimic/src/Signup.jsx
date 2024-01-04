@@ -30,19 +30,6 @@ function Signup() {
             console.log('signed in! creating message collection');
             const messagesCollectionRef = collection(userDocRef, 'messages'); // message collection created  ---- error right here--- message subcollection is not being created 
             // Add a sample message to the 'messages' subcollection
-            const sampleMessage = {
-              text: 'Hello, this is a sample message!',
-              timestamp: new Date(),
-              who: 'user', // Replace with 'server' if it's a server message
-            };
-            
-            try {
-              // Add the sample message document to the 'messages' subcollection
-              await addDoc(messagesCollectionRef, sampleMessage); // error with addDoc not showing
-              console.log('Message added to subcollection.');
-            } catch (error) {
-              console.error('Error adding message:', error);
-            }
             
             console.log('user message collection has been created');
             navigate('/home'); // render Home.jsx
