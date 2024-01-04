@@ -7,7 +7,7 @@ import requests
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/chat", methods=["POST"])
+@app.route("/api/chat", methods=["POST"])  # Notice the '/api' prefix
 def chat():
     data = request.json
     user_message = data['message']
@@ -30,6 +30,10 @@ def chat():
     # response_message = "This is a response from the server."
     response_message = response.json()['candidates'][0]['content']['parts'][0]['text']
     return jsonify({'response': response_message})
+
+# Vercel's expected handler for serverless functions
+def handler(environ, start_response):
+    return app(environ, start_response)
 
 if __name__ == '__main__':
     app.run(debug=True)
