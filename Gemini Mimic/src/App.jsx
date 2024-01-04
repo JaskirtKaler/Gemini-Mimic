@@ -10,12 +10,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
-        {/* Define other routes here */}
       </Routes>
     </BrowserRouter>
   );
