@@ -4,6 +4,7 @@ import { app } from './firebaseConfig'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, doc, setDoc, collection } from 'firebase/firestore';
 import Home from './Home';
+import { useNavigate } from 'react-router-dom';
 function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -12,7 +13,7 @@ function Signup() {
     const auth = getAuth();
     const db = getFirestore();
     const [isSignedUp, setIsSignedUp] = useState(false); // to track signup status
-   
+    const navigate = useNavigate();
 
     const handleSignup = async () =>{
         if(password !== confirmPassword){
@@ -25,28 +26,27 @@ function Signup() {
             const user = userCredential.user;
             // console.log('Signed up user:', user)
             const userDocRef = doc(db, 'users', user.uid);
-            await setDoc(userDocRef, {/* any user-specific data */ });
-            const messageCollectionRef = collection(userDocRef, 'messages'); // message collection created 
-            console.log('User signed up:', user.uid);
-            // Create a new message document
-            const messageData = {
-              text: 'This is a test message',
+            await setDoc(userDocRef, {uid: user.uid});
+            navigate('/home'); // render Home.jsx
+            console.log('signed in! creating message collection');
+            const messagesCollectionRef = collection(userDocRef, 'messages'); // message collection created  ---- error right here--- message subcollection is not being created 
+            // Add a sample message to the 'messages' subcollection
+            const sampleMessage = {
+              text: 'Hello, this is a sample message!',
               timestamp: new Date(),
-              sender: currentUserUID,
-              sentByUser: true,
-              // Other relevant fields specific to your application or message structure
+              who: 'user', // Replace with 'server' if it's a server message
             };
-            await addDoc(messageCollectionRef, messageData);// 
 
-            setIsSignedUp(true);
+            // Add the sample message document to the 'messages' subcollection
+            await addDoc(messagesCollectionRef, sampleMessage);
         }catch(error){
             setError(Error.message)
         }
     }
 
-    if(isSignedUp){
-        return <Home />; // Render Home Component upon successful signup
-    }
+    // if(isSignedUp){
+    //     return <Home />; // Render Home Component upon successful signup
+    // }
 
   return (
     
