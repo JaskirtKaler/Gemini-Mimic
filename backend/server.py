@@ -10,7 +10,6 @@ CORS(app)
 @app.route("/chat", methods=["POST"])
 def chat():
     data = request.json
-    print(data)
     user_message = data['message']
 
     url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent'
@@ -26,9 +25,7 @@ def chat():
     }
 
     response = requests.post(url, headers=headers, json=data, params={'key': api_key})
-    print(response)
 
-    print(user_message)
     # test
     # response_message = "This is a response from the server."
     response_message = response.json()['candidates'][0]['content']['parts'][0]['text']
