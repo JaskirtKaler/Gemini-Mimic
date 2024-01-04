@@ -2,8 +2,9 @@ import React, { useState} from 'react';
 import './Signup.css'
 import { app } from './firebaseConfig'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, doc, setDoc, collection } from 'firebase/firestore';
+import { getFirestore, doc, setDoc, collection, addDoc } from 'firebase/firestore';
 import Home from './Home';
+import { useNavigate } from 'react-router-dom';
 function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -12,7 +13,7 @@ function Signup() {
     const auth = getAuth();
     const db = getFirestore();
     const [isSignedUp, setIsSignedUp] = useState(false); // to track signup status
-   
+    const navigate = useNavigate();
 
     const handleSignup = async () =>{
         if(password !== confirmPassword){
@@ -25,21 +26,21 @@ function Signup() {
             const user = userCredential.user;
             // console.log('Signed up user:', user)
             const userDocRef = doc(db, 'users', user.uid);
-            await setDoc(userDocRef, {/* any user-specific data */ });
-            const messageCollectionRef = collection(userDocRef, 'messages'); // message collection created 
-            console.log('User signed up:', user.uid);
-            // Create a new message document
-           
-
-            setIsSignedUp(true);
+            await setDoc(userDocRef, {uid: user.uid});
+            console.log('signed in! creating message collection');
+            const messagesCollectionRef = collection(userDocRef, 'messages'); // message collection created  ---- error right here--- message subcollection is not being created 
+            // Add a sample message to the 'messages' subcollection
+            
+            console.log('user message collection has been created');
+            navigate('/home'); // render Home.jsx
         }catch(error){
             setError(Error.message)
         }
     }
 
-    if(isSignedUp){
-        return <Home />; // Render Home Component upon successful signup
-    }
+    // if(isSignedUp){
+    //     return <Home />; // Render Home Component upon successful signup
+    // }
 
   return (
     
