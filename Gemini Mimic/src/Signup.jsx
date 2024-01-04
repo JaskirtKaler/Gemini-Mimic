@@ -2,6 +2,7 @@ import React, { useState} from 'react';
 import './Signup.css'
 import { app } from './firebaseConfig'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, doc, setDoc, collection } from 'firebase/firestore';
 import Home from './Home';
 function Signup() {
     const [email, setEmail] = useState('');
@@ -9,6 +10,7 @@ function Signup() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState(null);
     const auth = getAuth();
+    const db = getFirestore();
     const [isSignedUp, setIsSignedUp] = useState(false); // to track signup status
    
 
@@ -21,15 +23,25 @@ function Signup() {
         try{
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
-            console.log('Signed up user:', user)
+            // console.log('Signed up user:', user)
+            const userDocRef = doc(db, 'users', user.uid);
+            await setDoc(userDocRef, {/* any user-specific data */ });
+            const messageCollectionRef = collection(userDocRef, 'messages'); // message collection created 
+            console.log('User signed up:', user.uid);
+            // Create a new message document
+            const messageData = {
+              text: 'This is a test message',
+              timestamp: new Date(),
+              sender: currentUserUID,
+              sentByUser: true,
+              // Other relevant fields specific to your application or message structure
+            };
+            await addDoc(messageCollectionRef, messageData);// 
+
             setIsSignedUp(true);
         }catch(error){
             setError(Error.message)
         }
-    }
-    // get inputs and check if passwords match
-    const handleInput = (event) =>{
-
     }
 
     if(isSignedUp){
