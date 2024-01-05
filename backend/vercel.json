@@ -9,12 +9,11 @@
     "routes": [
       {
         "src": "/api/(.*)",
-        "dest": "/api/index.py"
+        "dest": "/api/server.py"
       }
     ],
     "env": {
       "API_KEY": "@api_key"
     }
   }
-  
   
